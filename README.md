@@ -1,5 +1,5 @@
 # MyBatis-batch
-基于 MyBatis 执行 SQL 批量操作的插件
+基于 MyBatis 执行 SQL 批量操作的插件。
 
 MyBatis conf 配置：
 ```xml
@@ -9,6 +9,14 @@ MyBatis conf 配置：
 		<plugin interceptor="net.coderbee.mybatis.batch.BatchStatementHandler" />
 	</plugins>
 </configuration>
+```
+
+测试表的 SQL 语句：
+```sql
+create table auto_increment_id (
+	id int primary key auto_increment,
+	name varchar(100)
+);
 ```
 
 Mapper XML 编写说明，需要把 `parameterType` 指定为 `net.coderbee.mybatis.batch.BatchParameter`，如下：
