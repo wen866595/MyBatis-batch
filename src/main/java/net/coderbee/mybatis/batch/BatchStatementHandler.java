@@ -62,21 +62,8 @@ public class BatchStatementHandler implements Interceptor {
 							.getValueByFieldName(preparedStatementHandler,
 									"mappedStatement");
 
-					KeyGenerator keyGenerator = mappedStatement
-							.getKeyGenerator();
-					KeyGeneratorType keyGeneratorType = KeyGeneratorType.NONE;
-					if (keyGenerator instanceof SelectKeyGenerator) {
-						Boolean executeBefore = (Boolean) ReflectHelper
-								.getValueByFieldName(keyGenerator,
-										"executeBefore");
-						if (executeBefore) {
-							keyGeneratorType = KeyGeneratorType.SELECT_BEFORE;
-						} else {
-							keyGeneratorType = KeyGeneratorType.SELECT_AFTER;
-						}
-					} else if (keyGenerator instanceof Jdbc3KeyGenerator) {
-						keyGeneratorType = KeyGeneratorType.SELECT_AFTER;
-					}
+					KeyGeneratorType keyGeneratorType = getKeyGeneratorType(
+							mappedStatement);
 
 					// 如果设置了，提前获取 key
 					if (keyGeneratorType == KeyGeneratorType.SELECT_BEFORE) {
@@ -101,6 +88,27 @@ public class BatchStatementHandler implements Interceptor {
 		}
 
 		return invocation.proceed();
+	}
+
+	protected KeyGeneratorType getKeyGeneratorType(
+			MappedStatement mappedStatement)
+					throws NoSuchFieldException, IllegalAccessException {
+		KeyGenerator keyGenerator = mappedStatement
+				.getKeyGenerator();
+		KeyGeneratorType keyGeneratorType = KeyGeneratorType.NONE;
+		if (keyGenerator instanceof SelectKeyGenerator) {
+			Boolean executeBefore = (Boolean) ReflectHelper
+					.getValueByFieldName(keyGenerator,
+							"executeBefore");
+			if (executeBefore) {
+				keyGeneratorType = KeyGeneratorType.SELECT_BEFORE;
+			} else {
+				keyGeneratorType = KeyGeneratorType.SELECT_AFTER;
+			}
+		} else if (keyGenerator instanceof Jdbc3KeyGenerator) {
+			keyGeneratorType = KeyGeneratorType.SELECT_AFTER;
+		}
+		return keyGeneratorType;
 	}
 
 	@SuppressWarnings("rawtypes")
