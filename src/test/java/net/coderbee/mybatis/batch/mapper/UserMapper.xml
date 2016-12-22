@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.coderbee.mybatis.batch.mapper.UserMapper">
+
+	<update id="updateBatch" parameterType="net.coderbee.mybatis.batch.BatchParameter">
+		update simple_user set name = name || #{} where id = #{id}
+	</update>
+
+	<delete id="deleteBatch" parameterType="net.coderbee.mybatis.batch.BatchParameter">
+		delete from simple_user where id = #{id}
+	</delete>
+
+	<select id="selectAll" resultType="net.coderbee.mybatis.batch.entity.User">
+		select id, name, email from simple_user
+	</select>
+
+	<sql id="insertSql">
+		insert into simple_user (
+			name,
+			email
+		) values (
+			#{name},
+			#{email}
+		)
+	</sql>
+
+	<insert id="batchInsert2derby" useGeneratedKeys="true"
+		keyProperty="id" parameterType="net.coderbee.mybatis.batch.BatchParameter">
+		<include refid="insertSql" />
+	</insert>
+
+	<insert id="batchInsert2Hsqldb" useGeneratedKeys="true"
+		keyProperty="id" parameterType="net.coderbee.mybatis.batch.BatchParameter">
+		<include refid="insertSql" />
+	</insert>
+
+</mapper>
