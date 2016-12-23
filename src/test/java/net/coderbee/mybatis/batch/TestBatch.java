@@ -2,7 +2,10 @@ package net.coderbee.mybatis.batch;
 
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -55,6 +58,7 @@ public class TestBatch extends TestBatchBase {
 		testBatchDelete(userMapper);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testOnHsqldb() {
 		SqlSession sqlSession = hsqldbSqlSessionFactory.openSession();
@@ -69,6 +73,15 @@ public class TestBatch extends TestBatchBase {
 		checkResult(userList);
 
 		testBatchDelete(userMapper);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", "abc123");
+		map.put("email", "abc123@126.com");
+		List<Map<String, Object>> list = Arrays.asList(map);
+		userMapper.batchInsertByMap(
+				BatchParameter.<Map<String, Object>> wrap(list));
+
+		Assert.assertNotNull(((Number) map.get("id")).intValue() == 1003);
 	}
 
 	public void testBatchDelete(UserMapper userMapper) {

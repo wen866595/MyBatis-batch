@@ -1,6 +1,7 @@
 package net.coderbee.mybatis.batch.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import net.coderbee.mybatis.batch.BatchParameter;
 import net.coderbee.mybatis.batch.entity.User;
@@ -16,6 +17,8 @@ public interface UserMapper {
 	int deleteBatch(BatchParameter<User> users);
 
 	int updateBatch(BatchParameter<User> users);
+
+	int batchInsertByMap(BatchParameter<Map<String, Object>> users);
 
 	int batchInsert2derby(BatchParameter<User> users);
 

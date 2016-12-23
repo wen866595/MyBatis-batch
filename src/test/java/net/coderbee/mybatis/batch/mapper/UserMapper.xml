@@ -25,6 +25,11 @@
 		)
 	</sql>
 
+	<insert id="batchInsertByMap" useGeneratedKeys="true"
+		keyProperty="id" parameterType="net.coderbee.mybatis.batch.BatchParameter">
+		<include refid="insertSql" />
+	</insert>
+
 	<insert id="batchInsert2derby" useGeneratedKeys="true"
 		keyProperty="id" parameterType="net.coderbee.mybatis.batch.BatchParameter">
 		<include refid="insertSql" />
