@@ -12,8 +12,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 
 /**
- * 用于绑定参数到 {@link java.sql.PreparedStatement} 的拦截器。<br/>
- * <br/>
+ * 用于绑定参数到 {@link java.sql.PreparedStatement} 的拦截器。<br>
+ * <br>
  * 
  * 拦截参数是 {@link net.coderbee.mybatis.batch.BatchParameter}
  * 的实例的参数绑定，取出里面的实体列表，分批绑定并执行。

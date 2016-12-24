@@ -21,16 +21,6 @@ public class ReflectHelper {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param obj
-	 * @param fieldName
-	 * @return
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 */
 	public static Object getValueByFieldName(Object obj, String fieldName)
 			throws SecurityException, NoSuchFieldException,
 			IllegalArgumentException, IllegalAccessException {
@@ -48,16 +38,6 @@ public class ReflectHelper {
 		return value;
 	}
 
-	/**
-	 * 
-	 * @param obj
-	 * @param fieldName
-	 * @param value
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 */
 	public static void setValueByFieldName(Object obj, String fieldName,
 			Object value) throws SecurityException, NoSuchFieldException,
 					IllegalArgumentException, IllegalAccessException {

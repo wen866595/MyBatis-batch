@@ -53,14 +53,6 @@ public class BatchParameter<T> {
 		return wrap(data, DEFAULT_BATCH_SIZE);
 	}
 
-	/**
-	 * 
-	 * @param data
-	 *            不能是空
-	 * @param batchSize
-	 *            不能小于等于 0
-	 * @return
-	 */
 	public static <T> BatchParameter<T> wrap(List<T> data, int batchSize) {
 		if (data == null || data.isEmpty()) {
 			throw new IllegalArgumentException("数据为空");
