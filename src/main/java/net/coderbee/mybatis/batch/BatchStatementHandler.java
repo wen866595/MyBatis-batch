@@ -72,16 +72,14 @@ public class BatchStatementHandler implements Interceptor {
 								keyGeneratorType);
 					}
 
-					// 清理批量执行的上下文
-					prepareBatchExecuteContext();
-
 					// 批量执行
 					executeBatch(mappedStatement,
 							(BatchParameter) parameterObject, ps,
 							boundSql, keyGeneratorType);
 
 					// 获取受影响的总共行数
-					int count = getAffectedRowCount();
+					int count = ((BatchParameter) parameterObject)
+							.getAffectedRowCount();
 					return count;
 				}
 			}
@@ -151,24 +149,25 @@ public class BatchStatementHandler implements Interceptor {
 
 			batchParams.add(pobject);
 			if (batchParams.size() == batchSize) {
-				executeBatch(mappedStatement, ps, keyGeneratorType,
+				executeBatch(mappedStatement, ps, paramObj, keyGeneratorType,
 						batchParams);
 				batchParams.clear();
 			}
 		}
 		if (parameterObject.size() % batchSize != 0) {
-			executeBatch(mappedStatement, ps, keyGeneratorType,
+			executeBatch(mappedStatement, ps, paramObj, keyGeneratorType,
 					batchParams);
 		}
 		return 0;
 	}
 
 	protected void executeBatch(MappedStatement mappedStatement,
-			PreparedStatement ps, KeyGeneratorType keyGenerator,
+			PreparedStatement ps, BatchParameter<Object> paramObj,
+			KeyGeneratorType keyGenerator,
 			List<Object> batchParams)
 					throws SQLException {
 		int[] batch = ps.executeBatch();
-		BatchExecuteContext.addUpdatedRowCount(batch);
+		paramObj.addRowCounts(batch);
 
 		if (keyGenerator == KeyGeneratorType.SELECT_AFTER) {
 
@@ -232,22 +231,6 @@ public class BatchStatementHandler implements Interceptor {
 			list.add(key);
 		}
 		return list;
-	}
-
-	private void prepareBatchExecuteContext() {
-		BatchExecuteContext.getUpdatedResult().clear();
-	}
-
-	protected int getAffectedRowCount() {
-		int count = 0;
-		List<Integer> list = BatchExecuteContext
-				.getUpdatedResult();
-		for (Integer i : list) {
-			if (i > 0) {
-				count += i;
-			}
-		}
-		return count;
 	}
 
 	public Object plugin(Object target) {

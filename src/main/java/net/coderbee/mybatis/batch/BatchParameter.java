@@ -1,5 +1,6 @@
 package net.coderbee.mybatis.batch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +17,12 @@ public class BatchParameter<T> {
 
 	private final List<T> data;
 	private final int batchSize;
+	private final List<Integer> affectedRowCounts;
 
 	private BatchParameter(List<T> data, int batchSize) {
 		this.data = data;
 		this.batchSize = batchSize;
+		affectedRowCounts = new ArrayList<Integer>(data.size());
 	}
 
 	public List<T> getData() {
@@ -28,6 +31,22 @@ public class BatchParameter<T> {
 
 	public int getBatchSize() {
 		return batchSize;
+	}
+
+	public int getAffectedRowCount() {
+		int count = 0;
+		for (Integer i : affectedRowCounts) {
+			if (i > 0) {
+				count += i;
+			}
+		}
+		return count;
+	}
+
+	public void addRowCounts(int[] counts) {
+		for (int i : counts) {
+			affectedRowCounts.add(i);
+		}
 	}
 
 	public static <T> BatchParameter<T> wrap(List<T> data) {

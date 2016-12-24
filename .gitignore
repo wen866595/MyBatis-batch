@@ -2,6 +2,9 @@
 .classpath
 .project
 *.iml
+.idea
 target
 /ibderby/
 /derby.log
+pom.xml.releaseBackup
+release.properties
