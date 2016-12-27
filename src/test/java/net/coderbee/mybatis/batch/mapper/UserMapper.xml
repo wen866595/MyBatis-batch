@@ -4,7 +4,7 @@
 <mapper namespace="net.coderbee.mybatis.batch.mapper.UserMapper">
 
 	<update id="updateBatch" parameterType="net.coderbee.mybatis.batch.BatchParameter">
-		update simple_user set name = name || #{} where id = #{id}
+		update simple_user set name = name || #{name} where id = #{id}
 	</update>
 
 	<delete id="deleteBatch" parameterType="net.coderbee.mybatis.batch.BatchParameter">
