@@ -3,13 +3,13 @@ package net.coderbee.mybatis.batch;
 import java.sql.PreparedStatement;
 import java.util.Properties;
 
-import org.apache.ibatis.executor.parameter.DefaultParameterHandler;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 
 /**
  * 用于绑定参数到 {@link java.sql.PreparedStatement} 的拦截器。<br>
