@@ -1,6 +1,15 @@
 # MyBatis-batch
 基于 MyBatis 执行 SQL 批量操作的插件。
 
+已上传到中央仓库，可直接引用， 1.0.0 适配 MyBatis 3.0.*-3.1.*， 1.1.0 适配 3.2.*-3.4.1 。
+```xml
+<dependency>
+    <groupId>net.coderbee</groupId>
+    <artifactId>mybatis-batch</artifactId>
+    <version>1.1.0</version>
+</dependency>
+```
+
 MyBatis conf 配置：
 ```xml
 <configuration>
