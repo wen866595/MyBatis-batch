@@ -1,7 +1,7 @@
 # MyBatis-batch
 基于 MyBatis 执行 SQL 批量操作的插件。
 
-已上传到中央仓库，可直接引用， 1.0.0 适配 MyBatis 3.0.*-3.1.*， 1.1.0 适配 3.2.*-3.4.1 。
+已上传到中央仓库，可直接引用， 1.0.0 适配 MyBatis `3.0.*-3.1.*`， 1.1.0 适配 `3.2.*-3.4.1` 。
 ```xml
 <dependency>
     <groupId>net.coderbee</groupId>
@@ -131,7 +131,8 @@ private User createUser(String name, String email) {
 ```
 
 
-**注意：**
+**注意：**   
+
 1. 对于批量插入且需要获取自动生成主键的，取决于数据库的实现，比如 derby 就不支持返回批量插入时生成的主键。
 2. 对于批量更新，Oracle 是不支持返回每一条语句所影响的具体行数的，只是返回了成功、但记录数未知的结果。
 
